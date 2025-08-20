@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  serra-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: serra_core
+    ports:
+      - "8000:8000"
+      - "8001:8001"  # WebSocket port
+    environment:
+      - ENVIRONMENT=development
+      - REDIS_URL=redis://redis:6379
+      - POSTGRES_URL=postgresql://serra:serra123@postgres:5432/serra_db
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - /var/run/docker.sock:/var/run/docker.sock  # For Docker-in-Docker capabilities
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - serra-network
+
+  serra-web:
+    build:
+      context: ./web_ui
+      dockerfile: Dockerfile
+    container_name: serra_web
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_WS_URL=ws://localhost:8001
+    volumes:
+      - ./web_ui/src:/app/src
+      - ./web_ui/public:/app/public
+    depends_on:
+      - serra-core
+    networks:
+      - serra-network
+
+  serra-scraper:
+    build:
+      context: ./scraper
+      dockerfile: Dockerfile
+    container_name: serra_scraper
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CORE_API_URL=http://serra-core:8000
+    volumes:
+      - ./scraper/src:/app/src
+      - ./data/scraper:/app/data
+    depends_on:
+      - redis
+      - serra-core
+    networks:
+      - serra-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: serra_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - serra-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: serra_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=serra_db
+      - POSTGRES_USER=serra
+      - POSTGRES_PASSWORD=serra123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - serra-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: serra_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - serra-core
+      - serra-web
+    networks:
+      - serra-network
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  serra-network:
+    driver: bridge
