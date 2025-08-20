@@ -1,0 +1,166 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "serra-orgin"
+version = "1.0.0"
+description = "A comprehensive AI agent framework for autonomous software development"
+authors = [
+    {name = "SERRA ORGIN Team", email = "polerbear1973@gmail.com"},
+    {name = "The Serra LM Collection LLC", email = "theserralmuscollectionllc@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # Core framework
+    "pydantic>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.23.0",
+    "websockets>=11.0.0",
+    
+    # AI and ML
+    "transformers>=4.30.0",
+    "torch>=2.0.0",
+    "numpy>=1.24.0",
+    "sentence-transformers>=2.2.0",
+    "chromadb>=0.4.0",
+    
+    # Web scraping
+    "playwright>=1.35.0",
+    "beautifulsoup4>=4.12.0",
+    "requests>=2.31.0",
+    "selenium>=4.10.0",
+    
+    # Database and storage
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.11.0",
+    "redis>=4.6.0",
+    "sqlite3", # Built-in, but listed for documentation
+    
+    # MCP and protocols
+    "mcp>=1.0.0",
+    "jsonrpc-async>=2.1.0",
+    "jsonschema>=4.17.0",
+    
+    # Utilities
+    "aiofiles>=23.1.0",
+    "aiohttp>=3.8.0",
+    "docker>=6.1.0",
+    "python-multipart>=0.0.6",
+    "python-dotenv>=1.0.0",
+    "typer[all]>=0.9.0",
+    "rich>=13.4.0",
+    "loguru>=0.7.0",
+    
+    # Development tools
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.4.0",
+    "pre-commit>=3.3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/serra-orgin/serra-orgin"
+Repository = "https://github.com/serra-orgin/serra-orgin"
+Documentation = "https://docs.serra-orgin.dev"
+
+[project.scripts]
+serra = "serra_orgin.cli:main"
+serra-agent = "serra_orgin.agents.main:start_agent"
+serra-swarm = "serra_orgin.swarm.main:start_swarm"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["serra_orgin"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

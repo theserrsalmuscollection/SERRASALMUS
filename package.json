@@ -1,0 +1,113 @@
+{
+  "name": "serra-orgin",
+  "version": "1.0.0",
+  "description": "A comprehensive AI agent framework for autonomous software development",
+  "main": "web_ui/src/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "desktop:dev": "electron desktop/src/main.js",
+    "desktop:build": "electron-builder",
+    "extension:build": "webpack --config extension/webpack.config.js",
+    "install:all": "npm install && cd web_ui && npm install && cd ../desktop && npm install && cd ../extension && npm install"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "framework",
+    "autonomous",
+    "development",
+    "full-stack",
+    "mcp",
+    "rag",
+    "scraping",
+    "deployment"
+  ],
+  "authors": [
+    "SERRA ORGIN Team <polerbear1973@gmail.com>",
+    "The Serra LM Collection LLC <theserralmuscollectionllc@gmail.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serra-orgin/serra-orgin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serra-orgin/serra-orgin/issues"
+  },
+  "homepage": "https://serra-orgin.dev",
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "@vitejs/plugin-react": "^4.0.4",
+    "autoprefixer": "^10.4.15",
+    "electron": "^25.6.0",
+    "electron-builder": "^24.6.3",
+    "eslint": "^8.47.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.28",
+    "prettier": "^3.0.2",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.3",
+    "@vitest/ui": "^0.34.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "copy-webpack-plugin": "^11.0.0",
+    "html-webpack-plugin": "^5.5.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^1.14.0",
+    "framer-motion": "^10.16.1",
+    "react-hot-toast": "^2.4.1",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "axios": "^1.5.0",
+    "socket.io-client": "^4.7.2",
+    "monaco-editor": "^0.41.0",
+    "@monaco-editor/react": "^4.5.1",
+    "react-markdown": "^8.0.7",
+    "remark-gfm": "^3.0.1",
+    "react-syntax-highlighter": "^15.5.0",
+    "zustand": "^4.4.1",
+    "react-query": "^3.39.3",
+    "react-hook-form": "^7.45.4",
+    "@hookform/resolvers": "^3.3.1",
+    "zod": "^3.22.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

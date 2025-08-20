@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/serra-orgin-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="SERRA ORGIN - Autonomous AI Development Framework combining Agent Zero, same.new, and lovable.dev features" />
+    <meta name="keywords" content="AI, agents, autonomous development, full-stack, framework, Agent Zero, lovable.dev" />
+    <meta name="author" content="SERRA ORGIN Team" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="SERRA ORGIN - Autonomous AI Development Framework" />
+    <meta property="og:description" content="Build the future autonomously with SERRA ORGIN's comprehensive AI agent framework" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://serra-orgin.dev" />
+    <meta property="og:image" content="/serra-orgin-og.png" />
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SERRA ORGIN - Autonomous AI Development" />
+    <meta name="twitter:description" content="Revolutionary AI framework for end-to-end software development automation" />
+    <meta name="twitter:image" content="/serra-orgin-twitter.png" />
+    
+    <title>SERRA ORGIN - Autonomous AI Development Framework</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Loading screen styles */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loading-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .serra-logo {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      .loading-text {
+        color: #94a3b8;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #1e293b;
+        border-top: 4px solid #06b6d4;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Background image setup */
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(
+          rgba(15, 23, 42, 0.8), 
+          rgba(15, 23, 42, 0.9)
+        ), url('/port-miami-bridge.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="serra-logo">🌊 SERRA ORGIN</div>
+      <div class="loading-text">Initializing Autonomous AI Framework...</div>
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Main App -->
+    <div id="root"></div>
+    
+    <script>
+      // Hide loading screen after app loads
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 500);
+          }
+        }, 1500); // Show loading for at least 1.5 seconds
+      });
+    </script>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
